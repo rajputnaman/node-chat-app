@@ -17,6 +17,7 @@ const sidebarTemplate = document.getElementById('sidebar-template').innerHTML;
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true })
 
 const autoscroll = () => {
+    // $messages.scrollTop = $messages.scrollHeight
     // New message element
     const $newMessage = $messages.lastElementChild
 
@@ -25,14 +26,16 @@ const autoscroll = () => {
     const newMessageMargin = parseInt(newMessageStyles.marginBottom)
     const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
 
+
     // Visible Height
     const visibleHeight = $messages.offsetHeight
 
-    // Height of messages container
-    const containerHeight = $messages.scrollHeight
+    // Height of messages container, -1 for rounding off purpose if height is in decimal
+    const containerHeight = $messages.scrollHeight - 1;
 
     // How far have I scrolled?
     const scrollOffset = $messages.scrollTop + visibleHeight
+    console.log(newMessageMargin, newMessageHeight, visibleHeight, containerHeight, scrollOffset);
 
     if (containerHeight - newMessageHeight <= scrollOffset) {
         $messages.scrollTop = $messages.scrollHeight
